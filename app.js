@@ -10,7 +10,12 @@ const authRouter = require("./Routes/authRoutes");
 const courseRouter = require("./Routes/courseRoutes");
 const scheduleRouter = require("./Routes/scheduleRoutes");
 
-app.use(cors());
+app.use(cors({
+  origin: [process.env.FRONTEND_URL],
+  method:['GET','POST','DELETE','PUT'],
+  credentials:true,
+})
+);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
