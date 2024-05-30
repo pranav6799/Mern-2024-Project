@@ -10,12 +10,16 @@ const authRouter = require("./Routes/authRoutes");
 const courseRouter = require("./Routes/courseRoutes");
 const scheduleRouter = require("./Routes/scheduleRoutes");
 
-app.use(cors({
-  origin: [process.env.FRONTEND_URL],
-  methods:['GET','POST','DELETE','PUT'],
-  credentials:true,
-})
-);
+const allowedOrigins = ['https://online-schedule-app.netlify.app'];
+
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions))
 app.use(morgan("dev"));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
